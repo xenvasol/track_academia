@@ -9,6 +9,7 @@ import Link from "next/link"
 import ProtectedRoute from "@/components/protected-route"
 import Navbar from "@/components/navbar"
 import FirebaseService, { type BookData } from "@/services/firebase-service"
+import Image from "next/image"
 
 interface BookDetailsPageProps {
   params: Promise<{
@@ -41,8 +42,8 @@ export default function BookDetailsPage({ params }: BookDetailsPageProps) {
         }
 
         setBook(bookData)
-      } catch (error: any) {
-        setError(error.message || "Failed to load book")
+      } catch (error: unknown) {
+        setError(error instanceof Error ? error.message : "Failed to sign in")
       } finally {
         setLoading(false)
       }
@@ -61,8 +62,8 @@ export default function BookDetailsPage({ params }: BookDetailsPageProps) {
     try {
       await firebaseService.deleteBook(book.id!)
       router.push("/books")
-    } catch (error: any) {
-      setError(error.message || "Failed to delete book")
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "Failed to delete book")
     }
   }
 
@@ -120,7 +121,7 @@ export default function BookDetailsPage({ params }: BookDetailsPageProps) {
                 <CardContent className="p-6">
                   <div className="aspect-[3/4] bg-gray-100 rounded mb-4 overflow-hidden">
                     {book.imageUrl ? (
-                      <img
+                      <Image
                         src={book.imageUrl || "/placeholder.svg"}
                         alt={book.name}
                         className="w-full h-full object-cover"

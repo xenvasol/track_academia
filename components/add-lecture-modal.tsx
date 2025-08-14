@@ -91,8 +91,10 @@ export default function AddLectureModal({
       const lectureId = await firebaseService.createLecture(lectureData);
       const createdLecture = { ...lectureData, id: lectureId };
       onLectureAdded(createdLecture);
-    } catch (error: any) {
-      setError(error.message || "Failed to add lecture");
+    } catch (error: unknown) {
+      setError(
+        error instanceof Error ? error.message : "Failed to add lecture"
+      );
     } finally {
       setLoading(false);
     }

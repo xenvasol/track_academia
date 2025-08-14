@@ -31,8 +31,8 @@ export default function DegreeSetupPage() {
     try {
       await updateUserData({ degree: degree.trim() })
       router.push("/dashboard")
-    } catch (error: any) {
-      setError(error.message || "Failed to save degree")
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "Failed to update degree")
     } finally {
       setLoading(false)
     }

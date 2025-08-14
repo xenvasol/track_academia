@@ -2,12 +2,10 @@
 
 import type React from "react";
 
-import { useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
-import { assets } from "@/assets/assets";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -26,8 +24,8 @@ export default function LoginPage() {
     try {
       await signIn(email, password);
       router.push("/dashboard");
-    } catch (error: any) {
-      setError(error.message || "Failed to sign in");
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "Failed to sign in");
     } finally {
       setLoading(false);
     }
@@ -95,7 +93,7 @@ export default function LoginPage() {
 
         <div className="text-center cursor-pointer">
           <p className="text-gray-600">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link
               href="/auth/signup"
               className="text-black font-medium hover:underline"

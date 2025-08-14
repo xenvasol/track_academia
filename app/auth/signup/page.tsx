@@ -25,8 +25,8 @@ export default function SignUpPage() {
     try {
       await signUp(email, password, displayName)
       router.push("/degree-setup")
-    } catch (error: any) {
-      setError(error.message || "Failed to create account")
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "Failed to sign in")
     } finally {
       setLoading(false)
     }

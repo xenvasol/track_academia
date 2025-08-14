@@ -83,8 +83,10 @@ export default function EditLectureModal({
       await firebaseService.updateLecture(lecture.id!, updates);
       const updatedLecture = { ...lecture, ...updates };
       onLectureUpdated(updatedLecture);
-    } catch (error: any) {
-      setError(error.message || "Failed to update lecture");
+    } catch (error: unknown) {
+      setError(
+        error instanceof Error ? error.message : "Failed to update lecture"
+      );
     } finally {
       setLoading(false);
     }

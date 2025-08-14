@@ -47,6 +47,7 @@ function validateFile(file: File): void {
     throw new Error("File size exceeds 10MB limit");
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if (!SUPPORTED_IMAGE_TYPES.includes(file.type as any)) {
     throw new Error("Only JPEG, PNG, GIF, or WebP images are allowed");
   }

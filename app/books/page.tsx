@@ -11,6 +11,7 @@ import Breadcrumbs from "@/components/breadcrumbs";
 import LoadingSpinner from "@/components/loading-spinner";
 import EmptyState from "@/components/empty-state";
 import FirebaseService, { type BookData } from "@/services/firebase-service";
+import Image from "next/image";
 
 export default function BooksPage() {
   const { user } = useAuth();
@@ -85,7 +86,7 @@ export default function BooksPage() {
                     <Link href={`/books/${book.id}/lectures`} className="block">
                       <div className="h-28 bg-gray-50 rounded mb-2 overflow-hidden relative">
                         {book.imageUrl ? (
-                          <img
+                          <Image
                             src={book.imageUrl}
                             alt={book.name}
                             className="w-full h-full object-cover"

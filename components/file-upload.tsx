@@ -3,6 +3,7 @@
 import type React from "react";
 import { useState, useRef } from "react";
 import { uploadToCloudinary } from "@/lib/cloudinary-upload";
+import Image from "next/image";
 
 interface FileUploadProps {
   label: string;
@@ -59,8 +60,10 @@ export default function FileUpload({
 
       const downloadUrl = await uploadToCloudinary(file);
       onUploadComplete(downloadUrl);
-    } catch (error: any) {
-      onUploadError(error.message || "Failed to upload file");
+    } catch (error: unknown) {
+      onUploadError(
+        error instanceof Error ? error.message : "Failed to upload image"
+      );
       setPreview(currentImageUrl || "");
     } finally {
       setUploading(false);
@@ -117,7 +120,7 @@ export default function FileUpload({
         {preview ? (
           <div className="space-y-4">
             <div className="w-32 h-40 mx-auto border border-gray-200 rounded overflow-hidden">
-              <img
+              <Image
                 src={preview || "/placeholder.svg"}
                 alt="Preview"
                 className="w-full h-full object-cover"

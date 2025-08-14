@@ -52,8 +52,8 @@ export default function EditBookPage({
         setName(bookData.name);
         setAuthor(bookData.author);
         setImageUrl(bookData.imageUrl || "");
-      } catch (error: any) {
-        setError(error.message || "Failed to load book");
+      } catch (error: unknown) {
+        setError(error instanceof Error ? error.message : "Failed to sign in");
       } finally {
         setLoading(false);
       }
@@ -86,8 +86,8 @@ export default function EditBookPage({
 
       await firebaseService.updateBook(book.id!, updates);
       router.push(`/books/${book.id}`);
-    } catch (error: any) {
-      setError(error.message || "Failed to update book");
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "Failed to sign in");
     } finally {
       setSaving(false);
     }

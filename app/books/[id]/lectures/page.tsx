@@ -67,8 +67,8 @@ export default function LecturesPage({ params }: LecturesPageProps) {
         });
 
         setSelectedLecture(todayLecture || lecturesData[0] || null);
-      } catch (error: any) {
-        setError(error.message || "Failed to load data");
+      } catch (error: unknown) {
+        setError(error instanceof Error ? error.message : "Failed to sign in");
       } finally {
         setLoading(false);
       }
@@ -188,7 +188,7 @@ export default function LecturesPage({ params }: LecturesPageProps) {
                 onClick={() => setShowAddModal(true)}
                 className="px-4 py-2 bg-indigo-700 text-white duration-150 transition-colors rounded hover:bg-indigo-800 cursor-pointer"
               >
-                Add Today's Lecture
+                Add Today&apos;s Lecture
               </button>
             </div>
           </div>

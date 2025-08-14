@@ -49,8 +49,8 @@ export default function AddBookPage() {
 
       await firebaseService.createBook(bookData)
       router.push("/books")
-    } catch (error: any) {
-      setError(error.message || "Failed to add book")
+    } catch (error: unknown) {
+      setError(error instanceof Error ? error.message : "Failed to sign in")
     } finally {
       setLoading(false)
     }
